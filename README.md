@@ -1,1 +1,1 @@
-# rfmfe_cpp
+# Remote File Manager Frontend (C++)
