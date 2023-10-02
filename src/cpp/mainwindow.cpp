@@ -3,12 +3,23 @@
 
 #include <QSplitter>
 #include <QTableWidget>
+#include <QToolBar>
+#include <QLineEdit>
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
+
+  m_toolBar = new QToolBar(this);
+  m_toolBar->setObjectName("MainToolBar");
+  m_toolBar->addWidget(new QLabel(tr("Remote host: ")));
+  m_toolBar->addWidget(new QLabel("http://"));
+  m_remoteEdit = new QLineEdit();
+  m_toolBar->addWidget(m_remoteEdit);
+  addToolBar(Qt::TopToolBarArea, m_toolBar);
 
   m_hSplitter      = new QSplitter(this);
   m_vSplitterLeft  = new QSplitter(m_hSplitter);
@@ -51,4 +62,14 @@ void MainWindow::restoreGeometryAndState(const QByteArray& mwGeom,
   m_hSplitter->restoreState(hsState);
   m_vSplitterLeft->restoreState(vslState);
   m_vSplitterRight->restoreState(vsrState);
+}
+
+void MainWindow::saveNetworkConfig(QString& remoteHost)
+{
+  remoteHost = m_remoteEdit->text();
+}
+
+void MainWindow::restoreNetworkConfig(const QString& remoteHost)
+{
+  m_remoteEdit->setText(remoteHost);
 }

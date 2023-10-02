@@ -2,6 +2,7 @@
 #define CONFIG_H
 
 #include <QByteArray>
+#include <QString>
 
 class Config
 {
@@ -16,6 +17,7 @@ public:
              m_hSplitterState,
              m_vSplitterLeftState,
              m_vSplitterRightState;
+  QString m_remoteHost;
 };
 
 #endif // CONFIG_H

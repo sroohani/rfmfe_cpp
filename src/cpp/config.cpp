@@ -1,6 +1,9 @@
 #include "config.h"
 
-#define CFGGRP_UI "UI"
+#include <QSettings>
+
+#define CFGGRP_UI  "UI"
+#define CFGGRP_NET "Network"
 
 #define CFGKEY_MW_GEOMETRY "MainWindowGeometry"
 #define CFGKEY_MW_STATE    "MainWindowState"
@@ -8,8 +11,7 @@
 #define CFGKEY_VSL_STATE   "VerticalSplitterLeftState"
 #define CFGKEY_VSR_STATE   "VerticalSplitterRightState"
 
-#include <QSettings>
-#include <QApplication>
+#define CFGKEY_RMT_HOST "RemoteHost"
 
 Config::Config()
 {
@@ -27,6 +29,10 @@ void Config::load()
   m_vSplitterLeftState  = cfg.value(CFGKEY_VSL_STATE).toByteArray();
   m_vSplitterRightState = cfg.value(CFGKEY_VSR_STATE).toByteArray();
   cfg.endGroup();
+
+  cfg.beginGroup(CFGGRP_NET);
+  m_remoteHost = cfg.value(CFGKEY_RMT_HOST).toString();
+  cfg.endGroup();
 }
 
 void Config::save()
@@ -39,5 +45,9 @@ void Config::save()
   cfg.setValue(CFGKEY_HS_STATE, m_hSplitterState);
   cfg.setValue(CFGKEY_VSL_STATE, m_vSplitterLeftState);
   cfg.setValue(CFGKEY_VSR_STATE, m_vSplitterRightState);
+  cfg.endGroup();
+
+  cfg.beginGroup(CFGGRP_NET);
+  cfg.setValue(CFGKEY_RMT_HOST, m_remoteHost);
   cfg.endGroup();
 }

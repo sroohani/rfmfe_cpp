@@ -9,6 +9,8 @@ QT_END_NAMESPACE
 
 class QSplitter;
 class QTableWidget;
+class QToolBar;
+class QLineEdit;
 
 class MainWindow : public QMainWindow
 {
@@ -27,6 +29,8 @@ public:
                                const QByteArray& hsState,
                                const QByteArray& vslState,
                                const QByteArray& vsrState);
+  void saveNetworkConfig(QString& remoteHost);
+  void restoreNetworkConfig(const QString& remoteHost);
 
 private:
   Ui::MainWindow *ui;
@@ -37,5 +41,7 @@ private:
                *m_lProps{},
                *m_rContents{},
                *m_rProps{};
+  QToolBar *m_toolBar{};
+  QLineEdit *m_remoteEdit{};
 };
 #endif // MAINWINDOW_H

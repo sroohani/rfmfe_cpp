@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
                             cfg.m_hSplitterState,
                             cfg.m_vSplitterLeftState,
                             cfg.m_vSplitterRightState);
+  w.restoreNetworkConfig(cfg.m_remoteHost);
 
   QObject::connect(&a, &QApplication::aboutToQuit, [&cfg, &w]()
   {
@@ -29,6 +30,7 @@ int main(int argc, char *argv[])
                            cfg.m_hSplitterState,
                            cfg.m_vSplitterLeftState,
                            cfg.m_vSplitterRightState);
+    w.saveNetworkConfig(cfg.m_remoteHost);
     cfg.save();
   });
 
