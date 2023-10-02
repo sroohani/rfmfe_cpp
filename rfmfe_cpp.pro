@@ -15,6 +15,7 @@ SOURCES += \
     src/cpp/mainwindow.cpp
 
 HEADERS += \
+    src/cpp/global_defs.h \
     src/cpp/mainwindow.h
 
 FORMS += \
