@@ -17,6 +17,16 @@ class MainWindow : public QMainWindow
 public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+  void saveGeometryAndState(QByteArray& mwGeom,
+                            QByteArray& mwState,
+                            QByteArray& hsState,
+                            QByteArray& vslState,
+                            QByteArray& vsrState);
+  void restoreGeometryAndState(const QByteArray& mwGeom,
+                               const QByteArray& mwState,
+                               const QByteArray& hsState,
+                               const QByteArray& vslState,
+                               const QByteArray& vsrState);
 
 private:
   Ui::MainWindow *ui;
