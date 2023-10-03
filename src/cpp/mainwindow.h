@@ -10,6 +10,7 @@ QT_END_NAMESPACE
 #include <QByteArray>
 
 class QSplitter;
+class QComboBox;
 class QTableWidget;
 class QToolBar;
 class QLineEdit;
@@ -42,6 +43,8 @@ private:
   QSplitter *m_hSplitter{},
             *m_vSplitterLeft{},
             *m_vSplitterRight{};
+  QComboBox *m_lRoots{},
+            *m_rRoots{};
   QTableWidget *m_lContents{},
                *m_lProps{},
                *m_rContents{},

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QSplitter>
+#include <QComboBox>
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QHeaderView>
@@ -31,11 +32,13 @@ MainWindow::MainWindow(QWidget *parent)
   m_vSplitterRight = new QSplitter(m_hSplitter);
   m_vSplitterLeft->setOrientation(Qt::Vertical);
   m_vSplitterRight->setOrientation(Qt::Vertical);
+  m_lRoots = new QComboBox(m_vSplitterLeft);
   m_lContents = new QTableWidget(m_vSplitterLeft);
   m_lContents->insertColumn(0);
   m_lContents->verticalHeader()->hide();
   m_lContents->horizontalHeader()->hide();
   m_lProps = new QTableWidget(m_vSplitterLeft);
+  m_rRoots = new QComboBox(m_vSplitterRight);
   m_rContents = new QTableWidget(m_vSplitterRight);
   m_rContents->insertColumn(0);
   m_rContents->verticalHeader()->hide();
@@ -78,21 +81,19 @@ MainWindow::MainWindow(QWidget *parent)
       {
         QJsonObject jsonObj = QJsonDocument::fromJson(m_dataBuff).object();
         const QJsonArray& roots = jsonObj.value("roots").toArray();
-        QTableWidgetItem *item{};
-        int nRows = m_lContents->rowCount();
-        for (const auto& r: roots)
+        if (!roots.empty())
         {
-          item = new QTableWidgetItem(r.toString());
-          item->setData(RootRole, QVariant(true));
-          m_lContents->insertRow(nRows);
-          m_lContents->setItem(nRows, 0, item);
-
-          item = new QTableWidgetItem(r.toString());
-          item->setData(RootRole, QVariant(true));
-          m_rContents->insertRow(nRows);
-          m_rContents->setItem(nRows++, 0, item);
+          for (const auto& r: roots)
+          {
+            m_lRoots->addItem(r.toString());
+            m_rRoots->addItem(r.toString());
+          }
+          m_lRoots->setCurrentIndex(0);
+          m_rRoots->setCurrentIndex(0);
         }
+        m_lContents->clearContents();
         m_lProps->clearContents();
+        m_rContents->clearContents();
         m_rProps->clearContents();
       }
     });
