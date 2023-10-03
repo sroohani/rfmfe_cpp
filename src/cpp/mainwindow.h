@@ -7,10 +7,15 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+#include <QByteArray>
+
 class QSplitter;
 class QTableWidget;
 class QToolBar;
 class QLineEdit;
+class QPushButton;
+class QNetworkAccessManager;
+class QNetworkReply;
 
 class MainWindow : public QMainWindow
 {
@@ -43,5 +48,9 @@ private:
                *m_rProps{};
   QToolBar *m_toolBar{};
   QLineEdit *m_remoteEdit{};
+  QPushButton *m_goButton{};
+  QNetworkAccessManager *m_netAccMgr{};
+  QNetworkReply *m_netRep{};
+  QByteArray m_dataBuff;
 };
 #endif // MAINWINDOW_H
